@@ -1,0 +1,25 @@
+upstream bottle {
+       server 127.0.0.1:8080 weight=1;
+}
+
+server {
+        listen       1099;
+        server_name  localhost;
+        autoindex on;
+	location ~ ^(?:(?!configure).)+$ {
+            proxy_pass      http://bottle;
+            proxy_set_header           Host $host;
+            proxy_set_header           X-Real-IP $remote_addr;
+            proxy_cache_valid all 1m;
+        }
+}
+
+server {
+        listen       1088;
+        server_name  localhost;
+        location /nginx_status {
+            stub_status on;
+            access_log off;
+        }
+}
+
