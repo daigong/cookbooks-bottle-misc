@@ -6,6 +6,7 @@ server {
         listen       1099;
         server_name  localhost;
         autoindex on;
+	root /home/QMMqAwQOuy.uucin.com/resource ;
 	location ~ ^(?:(?!configure).)+$ {
             proxy_pass      http://bottle;
             proxy_set_header           Host $host;
